@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#183b4e">
+    <title>Minhas tarefas</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-width header-content">
+        <div>
+          <p class="eyebrow">Organização do dia a dia</p>
+          <h1>Minhas tarefas</h1>
+          <p class="header-description">Um lugar simples para anotar o que você precisa fazer.</p>
+        </div>
+        <span class="header-mark" aria-hidden="true">OT</span>
+      </div>
+    </header>
+
+    <main class="page-width">
+      <section class="summary" aria-label="Resumo das tarefas">
+        <article class="summary-card">
+          <span class="summary-label">No total</span>
+          <strong id="total-count">0</strong>
+        </article>
+        <article class="summary-card">
+          <span class="summary-label">Pendentes</span>
+          <strong id="pending-count">0</strong>
+        </article>
+        <article class="summary-card">
+          <span class="summary-label">Concluídas</span>
+          <strong id="completed-count">0</strong>
+        </article>
+      </section>
+
+      <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+
+      <div class="content-grid">
+        <section class="panel editor-panel" aria-labelledby="form-heading">
+          <div class="section-heading">
+            <p class="eyebrow">Nova atividade</p>
+            <h2 id="form-heading">O que você precisa fazer?</h2>
+          </div>
+
+          <form id="task-form">
+            <input id="task-id" name="task-id" type="hidden">
+
+            <label for="title">Tarefa <span class="required-mark">*</span></label>
+            <input id="title" name="title" type="text" maxlength="90" required
+              placeholder="Ex.: terminar o trabalho de Engenharia de Software">
+            <p class="field-hint">Use um título curto e fácil de reconhecer.</p>
+
+            <label for="description">Detalhes <span class="optional-mark">(opcional)</span></label>
+            <textarea id="description" name="description" rows="3" maxlength="280"
+              placeholder="Alguma informação que ajude você a lembrar"></textarea>
+
+            <div class="field-row">
+              <div>
+                <label for="due-date">Prazo <span class="optional-mark">(opcional)</span></label>
+                <input id="due-date" name="due-date" type="date">
+              </div>
+              <div>
+                <label for="priority">Prioridade</label>
+                <select id="priority" name="priority">
+                  <option value="low">Baixa</option>
+                  <option value="medium" selected>Média</option>
+                  <option value="high">Alta</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button id="save-task" class="button button-primary" type="submit">Adicionar tarefa</button>
+              <button id="cancel-edit" class="button button-secondary" type="button" hidden>Cancelar edição</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel list-panel" aria-labelledby="list-heading">
+          <div class="list-heading-row">
+            <div class="section-heading">
+              <p class="eyebrow">Sua lista</p>
+              <h2 id="list-heading">Tarefas</h2>
+            </div>
+            <div class="filters" role="group" aria-label="Filtrar tarefas">
+              <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">Todas</button>
+              <button class="filter-button" type="button" data-filter="pending" aria-pressed="false">Pendentes</button>
+              <button class="filter-button" type="button" data-filter="completed" aria-pressed="false">Concluídas</button>
+            </div>
+          </div>
+          <ul id="task-list" class="task-list" aria-live="polite"></ul>
+          <div id="empty-state" class="empty-state">
+            <span class="empty-icon" aria-hidden="true">✓</span>
+            <h3>A lista está livre por enquanto</h3>
+            <p>Quando aparecer uma tarefa, anote aqui para não perder de vista.</p>
+          </div>
+        </section>
+      </div>
+
+      <p class="privacy-note">Suas tarefas ficam salvas neste navegador. Esta versão não usa conta nem sincroniza dados com outros dispositivos.</p>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-width">Projeto A3 · Projeto e Engenharia de Software</div>
+    </footer>
+  </body>
+</html>
