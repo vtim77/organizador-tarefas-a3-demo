@@ -16,7 +16,35 @@
           <h1>Minhas tarefas</h1>
           <p class="header-description">Um lugar simples para anotar o que você precisa fazer.</p>
         </div>
-        <span class="header-mark" aria-hidden="true">OT</span>
+        <div class="header-tools">
+          <fieldset class="theme-picker" id="theme-picker">
+            <legend>Cor do app</legend>
+            <div class="theme-options">
+              <label class="theme-option">
+                <input type="radio" name="theme" value="default" aria-label="Azul">
+                <span class="theme-swatch theme-swatch-default" aria-hidden="true"></span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="forest" aria-label="Verde">
+                <span class="theme-swatch theme-swatch-forest" aria-hidden="true"></span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="plum" aria-label="Ameixa">
+                <span class="theme-swatch theme-swatch-plum" aria-hidden="true"></span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="terracotta" aria-label="Terracota">
+                <span class="theme-swatch theme-swatch-terracotta" aria-hidden="true"></span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="slate" aria-label="Grafite">
+                <span class="theme-swatch theme-swatch-slate" aria-hidden="true"></span>
+              </label>
+            </div>
+            <span class="theme-status" id="theme-status" aria-live="polite"></span>
+          </fieldset>
+          <span class="header-mark" aria-hidden="true">OT</span>
+        </div>
       </div>
     </header>
 

@@ -1,7 +1,15 @@
 "use strict";
 
 const STORAGE_KEY = "organizador-tarefas.v1";
+const THEME_STORAGE_KEY = "organizador-tarefas.tema.v1";
 const PRIORITIES = ["low", "medium", "high"];
+const THEMES = {
+  default: { label: "Azul", brand: "#183b4e" },
+  forest: { label: "Verde", brand: "#285548" },
+  plum: { label: "Ameixa", brand: "#503b5b" },
+  terracotta: { label: "Terracota", brand: "#754433" },
+  slate: { label: "Grafite", brand: "#3c4a59" }
+};
 const PRIORITY_LABELS = {
   low: "Prioridade baixa",
   medium: "Prioridade média",
@@ -70,10 +78,52 @@ const taskList = document.querySelector("#task-list");
 const emptyState = document.querySelector("#empty-state");
 const feedback = document.querySelector("#feedback");
 const filterButtons = [...document.querySelectorAll("[data-filter]")];
+const themePicker = document.querySelector("#theme-picker");
+const themeStatus = document.querySelector("#theme-status");
 
 let tasks = [];
 let currentFilter = "all";
 let storageReady = false;
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themePicker.querySelectorAll('input[name="theme"]').forEach((input) => {
+    input.checked = input.value === theme;
+  });
+  document.querySelector('meta[name="theme-color"]').content = THEMES[theme].brand;
+}
+
+function initializeThemePicker() {
+  let theme = "default";
+
+  try {
+    const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (savedTheme !== null) {
+      if (Object.prototype.hasOwnProperty.call(THEMES, savedTheme)) {
+        theme = savedTheme;
+      } else {
+        themeStatus.textContent = "Preferência de cor inválida; usando azul.";
+      }
+    }
+  } catch (error) {
+    themeStatus.textContent = `Não foi possível carregar a cor salva: ${error.message}`;
+  }
+
+  applyTheme(theme);
+  themePicker.addEventListener("change", (event) => {
+    const input = event.target;
+    if (!(input instanceof HTMLInputElement) || input.name !== "theme") return;
+    if (!Object.prototype.hasOwnProperty.call(THEMES, input.value)) return;
+
+    applyTheme(input.value);
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, input.value);
+      themeStatus.textContent = `Cor ${THEMES[input.value].label} salva neste navegador.`;
+    } catch (error) {
+      themeStatus.textContent = `Cor ${THEMES[input.value].label} aplicada nesta aba, mas não foi possível salvar: ${error.message}`;
+    }
+  });
+}
 
 function showFeedback(message, isError = false) {
   feedback.textContent = message;
@@ -337,5 +387,6 @@ filterButtons.forEach((button) => {
   });
 });
 
+initializeThemePicker();
 loadTasks();
 render();
